@@ -30,6 +30,8 @@ ext {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis' // Redis 캐싱을 위한 의존성 추가
+    implementation 'org.springframework.boot:spring-boot-starter-cache' // Spring Cache 추상화 의존성 추가
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'

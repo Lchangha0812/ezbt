@@ -2,7 +2,6 @@ package com.purefunction.ezbt.weather.client.request;
 
 import lombok.Builder;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

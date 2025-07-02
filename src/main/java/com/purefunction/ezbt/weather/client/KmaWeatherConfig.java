@@ -1,8 +1,11 @@
 package com.purefunction.ezbt.weather.client;
 
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.purefunction.ezbt.weather.client.response.CurrentWeather;
+import com.purefunction.ezbt.weather.client.response.ForecastWeather;
+import com.purefunction.ezbt.weather.client.response.WeatherResponse;
 import feign.Response;
 import feign.codec.Decoder;
 import feign.codec.ErrorDecoder;
@@ -13,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -44,9 +48,16 @@ public class KmaWeatherConfig {
                 JsonNode rootNode = objectMapper.readTree(bodyIs);
                 JsonNode itemsNode = rootNode.path("response").path("body").path("items").path("item");
 
-                JavaType javaType = objectMapper.constructType(type);
+                CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(List.class, WeatherResponse.class);
+                List<WeatherResponse> weatherResponses = objectMapper.readValue(itemsNode.traverse(), listType);
 
-                return objectMapper.readValue(itemsNode.traverse(), javaType);
+                if (type.equals(CurrentWeather.class)) {
+                    return CurrentWeather.from(weatherResponses);
+                } else if (type.equals(ForecastWeather.class)) {
+                    return ForecastWeather.from(weatherResponses);
+                }
+
+                return weatherResponses; // Fallback for other types
             }
         }
     }
