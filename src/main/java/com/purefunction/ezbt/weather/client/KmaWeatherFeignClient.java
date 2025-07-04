@@ -14,7 +14,6 @@ import java.util.Map;
         url = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0",
         configuration = KmaWeatherConfig.class
 )
-@Component
 public interface KmaWeatherFeignClient {
 
     @GetMapping(value = "/getUltraSrtNcst")

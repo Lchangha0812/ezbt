@@ -1,9 +1,7 @@
 package com.purefunction.ezbt.room.client.agoda.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -25,17 +23,6 @@ public class AgodaRequest {
             Double minimumStarRating,
             Double minimumReviewScore
     ) {
-
-        if (checkInDate.isAfter(checkOutDate)) {
-            throw new IllegalArgumentException("체크인 날짜는 체크아웃 날짜 이전이어야 합니다");
-        }
-        if (checkInDate.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("체크인 날짜는 오늘 또는 이후여야 합니다");
-        }
-        if (minimumDailyRate > maximumDailyRate) {
-            throw new IllegalArgumentException("최소숙박요금이 최대숙박요금보다 클 수 없습니다");
-        }
-
         this.criteria = new Criteria();
         criteria.cityId = cityId;
         criteria.checkInDate = checkInDate;
@@ -57,9 +44,11 @@ public class AgodaRequest {
     }
 
 
+
     @Getter
     @ToString
-    private static class Criteria {
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class Criteria {
         private int cityId;
 
         @JsonFormat(pattern = "yyyy-MM-dd")
@@ -73,7 +62,8 @@ public class AgodaRequest {
 
     @Getter
     @ToString
-    private static class Additional {
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class Additional {
         private String language;
         private String currency;
         private SortBy sortBy;
@@ -89,14 +79,16 @@ public class AgodaRequest {
 
     @Getter
     @ToString
-    private static class DailyRate {
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class DailyRate {
         private Double minimum;
         private Double maximum;
     }
 
     @Getter
     @ToString
-    private static class Occupancy {
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class Occupancy {
         private Integer numberOfAdult;
 //        private Integer numberOfChildren;
 //        private List<Integer> childrenAges;

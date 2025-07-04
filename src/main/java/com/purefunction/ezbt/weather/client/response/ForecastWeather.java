@@ -14,7 +14,7 @@ public record ForecastWeather(
 ) {
     public static ForecastWeather from(List<WeatherResponse> responses) {
         Map<WeatherCategory, String> weatherData = responses.stream()
-                .collect(Collectors.toMap(response -> WeatherCategory.fromCode(response.category()), WeatherResponse::fcstValue));
+                .collect(Collectors.toMap( response -> WeatherCategory.fromCode(response.category()), WeatherResponse::fcstValue));
 
         return new ForecastWeather(
                 Double.parseDouble(weatherData.getOrDefault(WeatherCategory.TEMPERATURE, "0.0")),

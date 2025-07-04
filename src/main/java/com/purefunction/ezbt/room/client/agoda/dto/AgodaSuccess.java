@@ -14,7 +14,7 @@ public record AgodaSuccess(List<Result> results) implements AgodaResponse {
 
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private record Result(
+    public record Result(
             Integer hotelId,
             String hotelName,
             String roomtypeName,

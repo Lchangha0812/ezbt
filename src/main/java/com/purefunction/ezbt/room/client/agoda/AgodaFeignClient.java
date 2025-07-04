@@ -1,5 +1,7 @@
 package com.purefunction.ezbt.room.client.agoda;
 
+import com.purefunction.ezbt.room.client.agoda.dto.AgodaRequest;
+import com.purefunction.ezbt.room.client.agoda.dto.AgodaResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface AgodaFeignClient {
     // TODO: header 만들어줘야함
 
-//    @PostMapping("/affiliateservice/lt_v1")
-//    AgodaResponse searchHotel(
-//            @RequestHeader("Authorization") String authorization,
-//            @RequestHeader("Accept-Encoding") String acceptEncoding,
-//            @RequestBody AgodaRequest criteria
-//    );
+    @PostMapping("/affiliateservice/lt_v1")
+    AgodaResponse searchHotel(
+            @RequestHeader("Authorization") String authorization,
+            @RequestHeader("Accept-Encoding") String acceptEncoding,
+            @RequestBody AgodaRequest criteria
+    );
 }
