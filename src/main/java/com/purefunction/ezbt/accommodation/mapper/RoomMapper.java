@@ -1,8 +1,8 @@
-package com.purefunction.ezbt.room.mapper;
+package com.purefunction.ezbt.accommodation.mapper;
 
-import com.purefunction.ezbt.room.client.agoda.dto.AgodaSuccess;
-import com.purefunction.ezbt.room.dto.RoomResponse; // RoomResponse import
-import com.purefunction.ezbt.room.model.Room;
+import com.purefunction.ezbt.accommodation.client.agoda.dto.AgodaSuccess;
+import com.purefunction.ezbt.accommodation.dto.RoomResponse; // RoomResponse import
+import com.purefunction.ezbt.accommodation.model.Room;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.purefunction.ezbt.room.dto;
+package com.purefunction.ezbt.accommodation.dto;
 
 import java.math.BigDecimal;
 

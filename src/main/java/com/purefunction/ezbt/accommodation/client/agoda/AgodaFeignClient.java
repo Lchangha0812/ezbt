@@ -1,7 +1,7 @@
-package com.purefunction.ezbt.room.client.agoda;
+package com.purefunction.ezbt.accommodation.client.agoda;
 
-import com.purefunction.ezbt.room.client.agoda.dto.AgodaRequest;
-import com.purefunction.ezbt.room.client.agoda.dto.AgodaResponse;
+import com.purefunction.ezbt.accommodation.client.agoda.dto.AgodaRequest;
+import com.purefunction.ezbt.accommodation.client.agoda.dto.AgodaResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import org.springframework.web.bind.annotation.PostMapping;

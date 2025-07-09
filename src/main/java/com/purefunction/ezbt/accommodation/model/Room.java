@@ -1,4 +1,4 @@
-package com.purefunction.ezbt.room.model;
+package com.purefunction.ezbt.accommodation.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

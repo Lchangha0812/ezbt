@@ -1,4 +1,4 @@
-package com.purefunction.ezbt.room.client.agoda.dto;
+package com.purefunction.ezbt.accommodation.client.agoda.dto;
 
 public record AgodaError(Integer id, String message) implements AgodaResponse {
     @Override
