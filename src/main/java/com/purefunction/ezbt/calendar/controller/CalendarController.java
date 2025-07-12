@@ -17,14 +17,12 @@ public class CalendarController {
 
     private final CalendarService calendarService;
 
-    // C
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BusinessTripDto createBusinessTrip(@RequestBody CreateBusinessTripRequest request) {
         return calendarService.createBusinessTrip(request);
     }
 
-    // R
     @GetMapping
     public List<BusinessTripDto> getAllBusinessTrips() {
         return calendarService.getAllBusinessTrips();
@@ -45,26 +43,22 @@ public class CalendarController {
         return calendarService.searchBusinessTrips(startDate, endDate, destination, userName);
     }
 
-    // U
     @PutMapping("/{tripId}")
     public BusinessTripDto updateBusinessTrip(@PathVariable Long tripId, @RequestBody UpdateBusinessTripRequest request) {
         return calendarService.updateBusinessTrip(tripId, request);
     }
 
-    // D
     @DeleteMapping("/{tripId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBusinessTrip(@PathVariable Long tripId) {
         calendarService.deleteBusinessTrip(tripId);
     }
 
-    // External Calendar Integration
     @PostMapping("/sync")
     public void syncWithExternalCalendar() {
         calendarService.syncWithExternalCalendar();
     }
 
-    // Approval Workflow
     @PostMapping("/{tripId}/approval/request")
     public void requestApproval(@PathVariable Long tripId) {
         calendarService.requestApproval(tripId);
@@ -80,7 +74,6 @@ public class CalendarController {
         return calendarService.getApprovalStatus(tripId);
     }
 
-    // Expense/Receipt Handling
     @PostMapping("/{tripId}/expenses")
     @ResponseStatus(HttpStatus.CREATED)
     public ExpenseDto addExpense(@PathVariable Long tripId, @RequestBody AddExpenseRequest request) {
@@ -103,4 +96,3 @@ public class CalendarController {
         calendarService.deleteExpense(tripId, expenseId);
     }
 }
-

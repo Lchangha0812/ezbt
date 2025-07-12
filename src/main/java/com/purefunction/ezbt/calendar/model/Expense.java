@@ -10,13 +10,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * 출장 경비를 나타내는 엔티티입니다.
+ */
 @Entity
 @Table(name = "expenses")
 @Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Expense {
 
     @Id
@@ -47,14 +47,18 @@ public class Expense {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Builder.Default
+    private boolean deleted = false;
+
     public static Expense of(AddExpenseRequest request, BusinessTrip businessTrip) {
-        return Expense.builder()
-                .description(request.getDescription())
-                .amount(request.getAmount())
-                .currency(request.getCurrency())
-                .receiptUrl(request.getReceiptUrl())
-                .businessTrip(businessTrip)
-                .build();
+        Expense expense = new Expense();
+        expense.description = request.getDescription();
+        expense.amount = request.getAmount();
+        expense.currency = request.getCurrency();
+        expense.receiptUrl = request.getReceiptUrl();
+        expense.businessTrip = businessTrip;
+        expense.deleted = false;
+        return expense;
     }
 
     public void update(UpdateExpenseRequest request) {
@@ -62,5 +66,9 @@ public class Expense {
         this.amount = request.getAmount();
         this.currency = request.getCurrency();
         this.receiptUrl = request.getReceiptUrl();
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

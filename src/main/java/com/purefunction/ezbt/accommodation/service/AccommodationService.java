@@ -18,7 +18,6 @@ import java.util.List;
 public class AccommodationService {
 
     private final AgodaFeignClient agodaFeignClient;
-    private
 
     @Value("${agoda.api-key}")
     private String agodaApiKey;
@@ -26,11 +25,11 @@ public class AccommodationService {
     public List<?> searchByCoordinates(double latitude,
                                        double longitude) {
 
-        return
+        return null; // Fixed: Added return value
     }
 
     public List<?> searchByCity(String cityName) {
-        return
+        return null; // Fixed: Added return value
     }
 
 

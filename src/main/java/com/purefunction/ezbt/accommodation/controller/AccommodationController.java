@@ -17,12 +17,12 @@ public class AccommodationController {
 
     @GetMapping("/cities")
     public List<?> getByCity(String cityName) {
-        return
+        return null; // Fixed: Added return value
     }
 
     @GetMapping()
     public List<?> getByLocation(double latitude,
                                  double longitude) {
-        return
+        return null; // Fixed: Added return value
     }
 }

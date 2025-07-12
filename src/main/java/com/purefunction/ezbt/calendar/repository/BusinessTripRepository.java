@@ -9,12 +9,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BusinessTripRepository extends JpaRepository<BusinessTrip, Long> {
+    List<BusinessTrip> findAllByDeletedFalse();
+    Optional<BusinessTrip> findByIdAndDeletedFalse(Long id);
 
     @Query("SELECT bt FROM BusinessTrip bt JOIN FETCH bt.user u " +
            "WHERE (:startDate IS NULL OR bt.startDate >= :startDate) " +
            "AND (:endDate IS NULL OR bt.endDate <= :endDate) " +
            "AND (:destination IS NULL OR LOWER(bt.destination) LIKE LOWER(CONCAT('%', :destination, '%'))) " +
-           "AND (:userName IS NULL OR LOWER(u.userName) LIKE LOWER(CONCAT('%', :userName, '%')))")
+           "AND (:userName IS NULL OR LOWER(u.userName) LIKE LOWER(CONCAT('%', :userName, '%')))" +
+           "AND bt.deleted = false")
     List<BusinessTrip> findByCriteria(
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate,

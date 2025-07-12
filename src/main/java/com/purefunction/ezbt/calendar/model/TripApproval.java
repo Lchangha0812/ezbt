@@ -1,22 +1,18 @@
 package com.purefunction.ezbt.calendar.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * 출장 승인 이력을 나타내는 엔티티입니다.
+ */
 @Entity
 @Table(name = "trip_approvals")
 @Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TripApproval {
 
     @Id
@@ -38,7 +34,21 @@ public class TripApproval {
     @Lob
     private String comment;
 
+    @Builder
+    public TripApproval(BusinessTrip businessTrip, User approver, ApprovalStatus status, String comment) {
+        this.businessTrip = businessTrip;
+        this.approver = approver;
+        this.status = status;
+        this.comment = comment;
+    }
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    private boolean deleted = false;
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }

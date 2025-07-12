@@ -7,13 +7,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * 사용자 정보를 나타내는 엔티티입니다.
+ */
 @Entity
 @Table(name = "users")
 @Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -25,6 +25,12 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Builder
+    public User(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+    }
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

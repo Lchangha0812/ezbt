@@ -1,6 +1,7 @@
 package com.purefunction.ezbt.calendar.model;
 
 import com.purefunction.ezbt.calendar.dto.CreateBusinessTripRequest;
+import com.purefunction.ezbt.calendar.dto.UpdateBusinessTripRequest; // Added this import
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,13 +12,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 출장 정보를 나타내는 엔티티입니다.
+ */
 @Entity
 @Table(name = "business_trips")
 @Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BusinessTrip {
 
     @Id
@@ -41,16 +42,9 @@ public class BusinessTrip {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Builder.Default
     private BusinessTripStatus status = BusinessTripStatus.DRAFT;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "businessTrip", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TripApproval> approvals = new ArrayList<>();
-
-    @Builder.Default
-    @OneToMany(mappedBy = "businessTrip", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Expense> expenses = new ArrayList<>();
+    
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -60,14 +54,18 @@ public class BusinessTrip {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    private boolean deleted = false;
+
     public static BusinessTrip of(CreateBusinessTripRequest request, User user) {
-        return BusinessTrip.builder()
-                .title(request.getTitle())
-                .startDate(request.getStartDate())
-                .endDate(request.getEndDate())
-                .destination(request.getDestination())
-                .user(user)
-                .build();
+        BusinessTrip businessTrip = new BusinessTrip();
+        businessTrip.title = request.getTitle();
+        businessTrip.startDate = request.getStartDate();
+        businessTrip.endDate = request.getEndDate();
+        businessTrip.destination = request.getDestination();
+        businessTrip.user = user;
+        businessTrip.status = BusinessTripStatus.DRAFT;
+        businessTrip.deleted = false;
+        return businessTrip;
     }
 
     public void update(UpdateBusinessTripRequest request) {
@@ -99,5 +97,9 @@ public class BusinessTrip {
         } else {
             throw new IllegalStateException("Business trip must be in PENDING_APPROVAL status to reject.");
         }
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }
